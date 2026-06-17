@@ -1,20 +1,7 @@
-const CACHE = 'sanmai-v4';
-const ASSETS = [
-  './',
-  './index.html',
-  './config.js',
-  './styles.css',
-  './questions.js',
-  './app.js',
-  './manifest.webmanifest',
-  './assets/favicon.svg',
-  './assets/icon-192.png',
-];
+const CACHE = 'sanmai-v1.0.2';
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting())
-  );
+self.addEventListener('install', () => {
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
@@ -25,12 +12,26 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+function isHtmlRequest(request) {
+  return (
+    request.mode === 'navigate' ||
+    (request.headers.get('accept') || '').includes('text/html')
+  );
+}
+
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const fetched = fetch(event.request)
+  // HTML 始终网络优先，避免旧版页面被缓存锁住
+  if (isHtmlRequest(event.request)) {
+    event.respondWith(
+      fetch(event.request)
         .then((response) => {
           if (response && response.status === 200) {
             const clone = response.clone();
@@ -38,9 +39,21 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         })
-        .catch(() => cached);
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
 
-      return cached || fetched;
-    })
+  // 静态资源：先用网络，失败再回退缓存
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        if (response && response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, clone));
+        }
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });

@@ -1,6 +1,6 @@
 /** 站点全局配置 */
 const APP_CONFIG = {
-  version: '1.0.1',
+  version: '1.0.2',
   name: '三脉 · 儒释道倾向测评',
   questionCount: 18,
   estimatedMinutes: 5,
