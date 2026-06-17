@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="十八道情境题，凭直觉探索你内心更亲近儒、释、道哪一脉。纯前端、隐私安全、支持手机访问。">
+  <meta name="theme-color" content="#f5f3ef">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="三脉 · 儒释道倾向测评">
+  <meta property="og:description" content="十八道情境题，凭直觉探索你内心更亲近儒、释、道哪一脉。">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="三脉 · 儒释道倾向测评">
+  <meta name="twitter:description" content="十八道情境题，凭直觉探索你内心更亲近儒、释、道哪一脉。">
+  <title>三脉 · 儒释道倾向</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "三脉 · 儒释道倾向测评",
+    "description": "十八道情境题，凭直觉探索你内心更亲近儒、释、道哪一脉",
+    "applicationCategory": "LifestyleApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#app">跳到主要内容</a>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main id="app" class="app">
+    <!-- 欢迎页 -->
+    <section id="screen-welcome" class="screen screen--active" data-screen="welcome">
+      <div class="screen__inner">
+        <p class="eyebrow">内在倾向探索</p>
+        <h1 class="title">三脉</h1>
+        <p class="subtitle">儒 · 释 · 道</p>
+        <p class="lead">
+          十八道情境，无对错之分。<br>
+          凭第一直觉作答，看见你内心更亲近的那一脉。
+        </p>
+        <button type="button" class="btn btn--primary" id="btn-start">开始探索</button>
+        <p class="footnote">约 5 分钟 · 结果仅保存在本机 · 无需注册</p>
+      </div>
+    </section>
+
+    <!-- 引导页 -->
+    <section id="screen-intro" class="screen" data-screen="intro" hidden>
+      <div class="screen__inner intro-body">
+        <p class="eyebrow">开始之前</p>
+        <h2 class="intro-title">如何作答</h2>
+        <ul class="intro-list">
+          <li>不要过度分析——选<strong>第一直觉</strong>，而非「应该」的答案</li>
+          <li>没有标准答案，结果反映的是<strong>内在倾向</strong>，非人格定论</li>
+          <li>全部数据在本地计算，<strong>不上传服务器</strong></li>
+        </ul>
+
+        <div class="triad-brief" aria-label="三脉简介">
+          <article class="triad-card" data-tradition="ru">
+            <h3>儒</h3>
+            <p>仁义礼智 · 担纲立序 · 入世担当</p>
+          </article>
+          <article class="triad-card" data-tradition="shi">
+            <h3>释</h3>
+            <p>观照离苦 · 慈悲为本 · 向内觉悟</p>
+          </article>
+          <article class="triad-card" data-tradition="dao">
+            <h3>道</h3>
+            <p>道法自然 · 守真任运 · 顺势而为</p>
+          </article>
+        </div>
+
+        <button type="button" class="btn btn--primary" id="btn-intro-next">我准备好了</button>
+      </div>
+    </section>
+
+    <!-- 问答页 -->
+    <section id="screen-quiz" class="screen" data-screen="quiz" hidden>
+      <header class="quiz-header">
+        <div class="quiz-header__row">
+          <button type="button" class="btn-text" id="btn-prev" disabled aria-label="上一题">← 上一题</button>
+          <span class="progress-label" id="progress-label">1 / 18</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </header>
+      <div class="screen__inner quiz-body">
+        <p class="question-dimension" id="question-dimension"></p>
+        <p class="question-text" id="question-text"></p>
+        <div class="choices" id="choices" role="listbox" aria-label="选项"></div>
+        <p class="quiz-hint">凭第一直觉 · 数字键 1–3 选择 · Backspace 返回</p>
+      </div>
+    </section>
+
+    <!-- 结果页 -->
+    <section id="screen-result" class="screen" data-screen="result" hidden>
+      <div class="screen__inner result-body">
+        <div id="result-announcer" class="sr-only" aria-live="polite"></div>
+        <p class="eyebrow">你的内在倾向</p>
+        <h2 class="result-title" id="result-title"></h2>
+        <p class="result-blend" id="result-blend" hidden></p>
+        <p class="result-desc" id="result-desc"></p>
+        <p class="result-deep" id="result-deep"></p>
+
+        <div class="triad-chart" id="triad-chart" aria-label="儒释道倾向分布">
+          <div class="triad-row" data-tradition="ru">
+            <span class="triad-label">儒</span>
+            <div class="triad-bar"><div class="triad-fill" id="bar-ru"></div></div>
+            <span class="triad-pct" id="pct-ru">0%</span>
+          </div>
+          <div class="triad-row" data-tradition="shi">
+            <span class="triad-label">释</span>
+            <div class="triad-bar"><div class="triad-fill" id="bar-shi"></div></div>
+            <span class="triad-pct" id="pct-shi">0%</span>
+          </div>
+          <div class="triad-row" data-tradition="dao">
+            <span class="triad-label">道</span>
+            <div class="triad-bar"><div class="triad-fill" id="bar-dao"></div></div>
+            <span class="triad-pct" id="pct-dao">0%</span>
+          </div>
+        </div>
+
+        <section class="result-section" aria-labelledby="facet-heading">
+          <h3 class="result-section__title" id="facet-heading">四维度分面</h3>
+          <div class="facet-grid" id="result-facets"></div>
+        </section>
+
+        <section class="result-section" aria-labelledby="practice-heading">
+          <h3 class="result-section__title" id="practice-heading">日常修习建议</h3>
+          <ul class="practice-list" id="result-practices"></ul>
+        </section>
+
+        <p class="result-shadow" id="result-shadow"></p>
+        <blockquote class="result-quote" id="result-quote"></blockquote>
+
+        <div class="result-actions">
+          <button type="button" class="btn btn--secondary" id="btn-share">分享结果</button>
+          <button type="button" class="btn btn--secondary" id="btn-restart">重新测试</button>
+        </div>
+
+        <p class="disclaimer">
+          本测评仅供自我探索参考，不构成心理诊断或专业建议。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span id="app-version">v1.0.0</span>
+    <span class="site-footer__sep">·</span>
+    <span>数据不上传 · 纯前端运行</span>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
