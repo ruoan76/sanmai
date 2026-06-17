@@ -6,7 +6,7 @@ const TRADITIONS = {
   ru: {
     name: '儒',
     full: '儒家',
-    color: '#8B4513',
+    color: '#8c4a32',
     essence: '仁义礼智，担纲立序',
     quote: '「士不可以不弘毅，任重而道远。」—— 《论语》',
     description:
@@ -25,7 +25,7 @@ const TRADITIONS = {
   shi: {
     name: '释',
     full: '佛家',
-    color: '#D4A574',
+    color: '#b8956b',
     essence: '观照离苦，慈悲为本',
     quote: '「应无所住而生其心。」—— 《金刚经》',
     description:
@@ -44,7 +44,7 @@ const TRADITIONS = {
   dao: {
     name: '道',
     full: '道家',
-    color: '#2F6B5E',
+    color: '#3d5c52',
     essence: '道法自然，守真任运',
     quote: '「知其不可奈何而安之若命，德之至也。」—— 《庄子》',
     description:

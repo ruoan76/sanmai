@@ -1,4 +1,4 @@
-const CACHE = 'sanmai-v3';
+const CACHE = 'sanmai-v4';
 const ASSETS = [
   './',
   './index.html',

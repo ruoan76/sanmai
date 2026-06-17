@@ -183,7 +183,7 @@
         renderQuestion();
         isTransitioning = false;
       }
-    }, 320);
+    }, 480);
   }
 
   function goPrevious() {

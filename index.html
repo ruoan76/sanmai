@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="十八道情境题，凭直觉探索你内心更亲近儒、释、道哪一脉。纯前端、隐私安全、支持手机访问。">
-  <meta name="theme-color" content="#f5f3ef">
+  <meta name="theme-color" content="#f6f1e8">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
   <meta property="og:title" content="三脉 · 儒释道倾向测评">
@@ -35,33 +35,41 @@
 </head>
 <body>
   <a class="skip-link" href="#app">跳到主要内容</a>
+
+  <!-- 水墨意境背景 -->
+  <div class="zen-bg" aria-hidden="true">
+    <div class="zen-bg__wash zen-bg__wash--1"></div>
+    <div class="zen-bg__wash zen-bg__wash--2"></div>
+    <div class="zen-bg__enso"></div>
+  </div>
   <div class="grain" aria-hidden="true"></div>
 
   <main id="app" class="app">
     <!-- 欢迎页 -->
     <section id="screen-welcome" class="screen screen--active" data-screen="welcome">
       <div class="screen__inner">
-        <p class="eyebrow">内在倾向探索</p>
+        <p class="eyebrow">一念观照</p>
         <h1 class="title">三脉</h1>
         <p class="subtitle">儒 · 释 · 道</p>
+        <p class="zen-divider" aria-hidden="true"></p>
         <p class="lead">
-          十八道情境，无对错之分。<br>
-          凭第一直觉作答，看见你内心更亲近的那一脉。
+          十八道情境，无对错之别。<br>
+          屏息片刻，凭第一直觉，照见内心所亲。
         </p>
-        <button type="button" class="btn btn--primary" id="btn-start">开始探索</button>
-        <p class="footnote">约 5 分钟 · 结果仅保存在本机 · 无需注册</p>
+        <button type="button" class="btn btn--primary" id="btn-start">入静作答</button>
+        <p class="footnote">约五分 · 本地无痕 · 无需注册</p>
       </div>
     </section>
 
     <!-- 引导页 -->
     <section id="screen-intro" class="screen" data-screen="intro" hidden>
       <div class="screen__inner intro-body">
-        <p class="eyebrow">开始之前</p>
-        <h2 class="intro-title">如何作答</h2>
+        <p class="eyebrow">静心一刻</p>
+        <h2 class="intro-title">作答须知</h2>
         <ul class="intro-list">
-          <li>不要过度分析——选<strong>第一直觉</strong>，而非「应该」的答案</li>
-          <li>没有标准答案，结果反映的是<strong>内在倾向</strong>，非人格定论</li>
-          <li>全部数据在本地计算，<strong>不上传服务器</strong></li>
+          <li>勿多思量——取<strong>第一念</strong>，非「应当」之答</li>
+          <li>本无标准，所示者乃<strong>当下倾向</strong>，非定论</li>
+          <li>一切在本地演算，<strong>不留痕迹</strong></li>
         </ul>
 
         <div class="triad-brief" aria-label="三脉简介">
@@ -79,7 +87,7 @@
           </article>
         </div>
 
-        <button type="button" class="btn btn--primary" id="btn-intro-next">我准备好了</button>
+        <button type="button" class="btn btn--primary" id="btn-intro-next">心静方始</button>
       </div>
     </section>
 
@@ -87,7 +95,7 @@
     <section id="screen-quiz" class="screen" data-screen="quiz" hidden>
       <header class="quiz-header">
         <div class="quiz-header__row">
-          <button type="button" class="btn-text" id="btn-prev" disabled aria-label="上一题">← 上一题</button>
+          <button type="button" class="btn-text" id="btn-prev" disabled aria-label="上一题">← 返上一问</button>
           <span class="progress-label" id="progress-label">1 / 18</span>
         </div>
         <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
@@ -98,7 +106,7 @@
         <p class="question-dimension" id="question-dimension"></p>
         <p class="question-text" id="question-text"></p>
         <div class="choices" id="choices" role="listbox" aria-label="选项"></div>
-        <p class="quiz-hint">凭第一直觉 · 数字键 1–3 选择 · Backspace 返回</p>
+        <p class="quiz-hint">取第一念 · 键 1–3 作答 · Backspace 可返</p>
       </div>
     </section>
 
@@ -106,7 +114,7 @@
     <section id="screen-result" class="screen" data-screen="result" hidden>
       <div class="screen__inner result-body">
         <div id="result-announcer" class="sr-only" aria-live="polite"></div>
-        <p class="eyebrow">你的内在倾向</p>
+        <p class="eyebrow">照见本心</p>
         <h2 class="result-title" id="result-title"></h2>
         <p class="result-blend" id="result-blend" hidden></p>
         <p class="result-desc" id="result-desc"></p>
@@ -158,7 +166,7 @@
   <footer class="site-footer">
     <span id="app-version">v1.0.0</span>
     <span class="site-footer__sep">·</span>
-    <span>数据不上传 · 纯前端运行</span>
+    <span>本地无痕 · 如露如电</span>
   </footer>
 
   <script src="config.js"></script>

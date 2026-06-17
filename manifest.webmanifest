@@ -4,10 +4,10 @@
   "description": "十八道情境题，探索你内心更亲近儒、释、道哪一脉",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f5f3ef",
-  "theme_color": "#f5f3ef",
+  "background_color": "#f6f1e8",
+  "theme_color": "#f6f1e8",
   "lang": "zh-CN",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icons": [
     {
       "src": "assets/icon-192.png",
