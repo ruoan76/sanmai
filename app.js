@@ -419,25 +419,12 @@
   }
 
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', async () => {
-      try {
-        const reg = await navigator.serviceWorker.register(`./sw.js?v=${APP_CONFIG.version}`);
-        await reg.update();
-        if (reg.waiting) {
-          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-        }
-        reg.addEventListener('updatefound', () => {
-          const worker = reg.installing;
-          if (!worker) return;
-          worker.addEventListener('statechange', () => {
-            if (worker.state === 'installed' && navigator.serviceWorker.controller) {
-              worker.postMessage({ type: 'SKIP_WAITING' });
-            }
-          });
-        });
-      } catch {
-        // 离线缓存非关键路径，静默失败
-      }
+    // 移除离线缓存，避免用户长期看到旧版页面
+    navigator.serviceWorker.getRegistrations().then((regs) => {
+      regs.forEach((reg) => reg.unregister());
     });
+    if (window.caches) {
+      caches.keys().then((keys) => keys.forEach((key) => caches.delete(key)));
+    }
   }
 })();
